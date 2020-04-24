@@ -1,0 +1,11 @@
+{
+    "name": "dropship_general",
+    "version": "18.0.0",
+    "title": "Dropship Commander",
+    "author": "Muppet9010",
+    "contact": "",
+    "homepage": "https://mods.factorio.com/mod/dropship_general",
+    "factorio_version": "0.18",
+    "dependencies": ["base >= 0.18"],
+    "description": "A miniatures wargame"
+}
