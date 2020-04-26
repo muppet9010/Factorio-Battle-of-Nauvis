@@ -1,11 +1,13 @@
 {
-    "name": "dropship_general",
+    "name": "battle_of_nauvis",
     "version": "18.0.0",
-    "title": "Dropship Commander",
+    "title": "Battle of Nauvis",
     "author": "Muppet9010",
     "contact": "",
-    "homepage": "https://mods.factorio.com/mod/dropship_general",
+    "homepage": "https://mods.factorio.com/mod/battle_of_nauvis",
     "factorio_version": "0.18",
-    "dependencies": ["base >= 0.18"],
-    "description": "A miniatures wargame"
+    "dependencies": [
+        "base >= 0.18"
+    ],
+    "description": "A miniatures wargame set on the Factorio planet Nauvis."
 }
