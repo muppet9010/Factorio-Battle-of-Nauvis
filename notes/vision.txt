@@ -1,0 +1,76 @@
+High Level Gameplay
+===================
+
+- A simultanious execution minatures war game with all players doing concurrent secret turn planning.
+- A turn is made up of 3 actions, with each action having 3 action points within it. Players design their turn on a per action basis, with action points used within an action to track real time activities. Actions & action points are a continous time stream, with turns being the command and control cycle.
+- A game will be a set number of actions.
+- The winner of a game will be based on the game objective: securing intellignce on the map, domination, annilation of enemy. kill value to be used in a draw.
+- Players fight on a relatively open city based area.
+- The map will be fully revelaed. There will be options for fog of war of: none, enemy plips (not unit type) and full visibility.
+- Players have a force made up of squads of the same unit type. A force will be a few squads or more (10+ units).
+- Initial unit types: tank, AA vehicle, infantry, infantry transport, vehicle carrying helicopter.
+- Units complete movement physically and so can block each others execution.
+- Orders are given to individual units and not per squad. This allows for engagement flexibility.
+- Units are ordered to spend their actions in any combination:
+    - move (full movement speed per action).
+    - shoot while moving (variable reduction of movement) - 1 action point delay to target acquisition starting.
+    - shoot while stationary.
+    - hold per action point, to allow for choreographed movement.
+- Squads set to shoot will have to spend 1 action point post target visibility in target acquisition.
+- Squads can be set to overwatch shooting (shoot automatically) will by default shoot a valid target unit based on priority order. They will not overkill the same target unit and will have a 1 action point delay where required to avoid this.
+- Squads can be set to targeted shooting where ordered to shoot at a specific squad if desired during planning. This will bypass priority targeting, but will still avoid overkilling the targeted squad units.
+- All units will take 2 complete actions to reload and update anti-countermeasures before they are ready for their next shooting action to be done. 1 shot per 3 actions.
+- Units in a squad must be kept within a close range of each other to maintain cohesion.
+
+
+Possible Variations
+============
+
+- Possibly executed as 1 battle group for all players simultaniously, rather than as all forces for all players. If needed for balance or to make gameplay cleaner for players.
+- The number of actions per turn is configurable and just represents the command and control delay.
+
+
+
+High level Functional Aspects
+=====================
+
+- Use game units and pathfinding to navigate between points. Players will need to manage the staggering and ordering of units through tight spaces, etc, with the use of delay.
+- Shooting will be done via script choosing the targets on priority list.
+
+
+
+
+Functionality
+============
+
+Commanding Units
+---------------
+
+- Some sort of cursor tool to allow selection of single units by left clicking on a unit.
+- Once unit is selected right click to open the order GUI for this unit.
+- Order GUI will have the options for the unit.
+- If move is involved in order then a highlight of the possible movement spots will be shown.
+- If shoot/overwatch is selected then a highlight of the range and vision from the spot will be shown.
+- Need to allow chaining togeatehr orders and adding new ones, removing orders via the GUI.
+
+Units
+-------------
+
+- Vehicle type units will be type "car" so I can have gun turrets on them.
+- Infantry type units will be something?????
+- Movement of vehicle units will be done via script setting direction and speed as can't use pathfinder or automatic movement for car type.
+- Shooting of units will be done via script for target acquisition and for generatign hit chance, etc. Shooting will be an effect on a pre-generated outcome.
+
+
+
+
+Excluded Functionality
+==============
+
+Commanding Units
+---------------
+
+- Ability to select more than 1 unit at a time.
+
+Moving Units
+-------------
