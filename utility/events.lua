@@ -1,3 +1,8 @@
+--[[
+    Events is used to register one or more functions to be run when a script.event occurs.
+    It supports defines.events and custom events. Also offers a raise event method.
+    Intended for use with a modular script design to avoid having to link to each modulars functions in a centralised event handler.
+]]
 --local Logging = require("utility/logging")
 
 local Events = {}
