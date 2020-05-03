@@ -11,9 +11,30 @@ MOD.events = MOD.events or {}
 MOD.customEventNameToId = MOD.customEventNameToId or {}
 MOD.eventFilters = MOD.eventFilters or {}
 
+-- Called from OnLoad() from each script file. Registers the event in Factorio and the handler function for all event types and custom inputs.
+-- Calls the Events.RegisterEvent() function internally and so the optional event filtering is documented there.
+Events.RegisterHandler = function(eventName, handlerName, handlerFunction, thisFilterName, thisFilterData)
+    if eventName == nil or handlerName == nil or handlerFunction == nil then
+        error("Events.RegisterHandler called with missing arguments")
+    end
+    local eventId = Events.RegisterEvent(eventName, thisFilterName, thisFilterData)
+    MOD.events[eventId] = MOD.events[eventId] or {}
+    MOD.events[eventId][handlerName] = handlerFunction
+    return eventId
+end
+
+-- Called from the root of Control.lua for custom inputs (key bindings) as their names are handled specially.
+Events.RegisterCustomInput = function(actionName)
+    if actionName == nil then
+        error("Events.RegisterCustomInput called with missing arguments")
+    end
+    script.on_event(actionName, Events._HandleEvent)
+end
+
+-- To be called when only an EventId is required as a return, i.e. custom event names for use by remote interfaces. For internal use the Events.RegisterHandler() function alone is sufficient.
 -- Called either from the root of Control.lua or from OnLoad for vanilla events and custom events.
 -- Filtered events have to expect to recieve results outside of their filter. As an event can only be registered one time, with multiple instances the most lienient or merged filters for all instances must be applied.
--- Returns the eventId, useful for  custom event names when you need to store the eventId to return via a remote interface call.
+-- Returns the eventId, useful for custom event names when you need to store the eventId to return via a remote interface call.
 Events.RegisterEvent = function(eventName, thisFilterName, thisFilterData)
     if eventName == nil then
         error("Events.RegisterEvent called with missing arguments")
@@ -48,30 +69,7 @@ Events.RegisterEvent = function(eventName, thisFilterName, thisFilterData)
     return eventId
 end
 
---Called from the root of Control.lua for custom inputs (key bindings) as their names are handled specially.
-Events.RegisterCustomInput = function(actionName)
-    if actionName == nil then
-        error("Events.RegisterCustomInput called with missing arguments")
-    end
-    script.on_event(actionName, Events._HandleEvent)
-end
-
---Called from OnLoad() from each script file. Handles all event types and custom inputs.
-Events.RegisterHandler = function(eventName, handlerName, handlerFunction)
-    if eventName == nil or handlerName == nil or handlerFunction == nil then
-        error("Events.RegisterHandler called with missing arguments")
-    end
-    local eventId
-    if MOD.customEventNameToId[eventName] ~= nil then
-        eventId = MOD.customEventNameToId[eventName]
-    else
-        eventId = eventName
-    end
-    MOD.events[eventId] = MOD.events[eventId] or {}
-    MOD.events[eventId][handlerName] = handlerFunction
-end
-
---Called when needed
+-- Called when needed
 Events.RemoveHandler = function(eventName, handlerName)
     if eventName == nil or handlerName == nil then
         error("Events.RemoveHandler called with missing arguments")
@@ -82,7 +80,7 @@ Events.RemoveHandler = function(eventName, handlerName)
     MOD.events[eventName][handlerName] = nil
 end
 
---inputName used by custom_input , with eventId used by all other events
+-- inputName used by custom_input , with eventId used by all other events
 Events._HandleEvent = function(eventData)
     local eventId, inputName = eventData.name, eventData.input_name
     if MOD.events[eventId] ~= nil then
@@ -96,7 +94,7 @@ Events._HandleEvent = function(eventData)
     end
 end
 
---Called when needed, but not before tick 0 as they are ignored
+-- Called when needed, but not before tick 0 as they are ignored
 Events.RaiseEvent = function(eventData)
     eventData.tick = game.tick
     local eventName = eventData.name
@@ -110,7 +108,7 @@ Events.RaiseEvent = function(eventData)
     end
 end
 
---Called from anywhere, including OnStartup in tick 0. This won't be passed out to other mods however, only run within this mod.
+-- Called from anywhere, including OnStartup in tick 0. This won't be passed out to other mods however, only run within this mod.
 Events.RaiseInternalEvent = function(eventData)
     eventData.tick = game.tick
     local eventName = eventData.name

@@ -9,9 +9,7 @@ SetupEvents.RegisterOnLoadHandler(
     "Testing",
     function()
         Utils.DisableSiloScript()
-        Events.RegisterEvent(defines.events.on_chunk_generated)
         Events.RegisterHandler(defines.events.on_chunk_generated, "Testing.MakeTestMapOnChunkGenerated", Testing.MakeTestMapOnChunkGenerated)
-        Events.RegisterEvent(defines.events.on_player_joined_game)
         Events.RegisterHandler(defines.events.on_player_joined_game, "Testing.SetPlayerInSeat1", Testing.SetPlayerInSeat1)
     end
 )
@@ -40,12 +38,12 @@ end
 
 Testing.PlaceDummyUnits = function(surface)
     local force = Interfaces.Call("Teams.GetSeatFromSeatId", 1).force
-    Testing.PlaceUnit(surface, Shared.units.dummy_tank.name, {0, 0}, force)
+    Testing.PlaceUnit(surface, Shared.units.dummy_tank.prototypeName, {0, 0}, force)
 end
 
 Testing.PlaceUnit = function(surface, unitName, position, force)
     local unit = surface.create_entity {name = unitName, position = position, force = force}
-    unit.operable = false
+    --unit.operable = false
     unit.rotatable = false
     unit.destructible = false
 end

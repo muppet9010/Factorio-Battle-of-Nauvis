@@ -12,9 +12,14 @@ SetupEvents.RegisterCreateGlobalsHandler(
 SetupEvents.RegisterOnLoadHandler(
     "Player",
     function()
-        Events.RegisterEvent(defines.events.on_player_joined_game)
         Events.RegisterHandler(defines.events.on_player_joined_game, "Player.OnPlayerJoined", Player.OnPlayerJoined)
         Interfaces.RegisterInterface("Player.PutPlayerInSeatId", Player.PutPlayerInSeatId)
+    end
+)
+
+SetupEvents.RegisterOnStartupHandler(
+    "Player",
+    function()
     end
 )
 
@@ -33,10 +38,12 @@ Player.PutPlayerInSeatId = function(player, seatId)
     player.set_controller {type = defines.controllers.god}
     local seat = Interfaces.Call("Teams.SetPlayerInSeatId", player, seatId)
     player.force = seat.force
+    Interfaces.Call("UnitTool.SetAsPlayerCursor", player)
 end
 
 Player.PutPlayerOnSpectatorsSide = function(player)
     player.set_controller {type = defines.controllers.spectator}
     local side = Interfaces.Call("Teams.SetPlayerInSideIdWatchers", player, "spectators")
     player.force = side.force
+    Interfaces.Call("UnitTool.RemoveAsPlayerCursor", player)
 end

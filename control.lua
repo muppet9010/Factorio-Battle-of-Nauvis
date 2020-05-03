@@ -4,5 +4,6 @@ SetupEvents.Setup()
 require("scripts/player")
 require("scripts/map")
 require("scripts/teams")
+require("scripts/unit-tool")
 
 require("scripts/testing")
