@@ -20,7 +20,7 @@ High Level Gameplay
 - Squads can be set to overwatch shooting (shoot automatically) will by default shoot a valid target unit based on priority order. They will not overkill the same target unit and will have a 1 action point delay where required to avoid this.
 - Squads can be set to targeted shooting where ordered to shoot at a specific squad if desired during planning. This will bypass priority targeting, but will still avoid overkilling the targeted squad units.
 - All units will take 2 complete actions to reload and update anti-countermeasures before they are ready for their next shooting action to be done. 1 shot per 3 actions.
-- Units in a squad must be kept within a close range of each other to maintain cohesion.
+- Units in a squad must be kept within a close range of each other to maintain cohesion - not sure how to enforce this given movement may be blocked. Maybe any unit out of cohesion can't fire as it can't get target confirmation? How to handle only 2 units if they split, which one is lead? Also need to allow for units trying to move into cohesion but being prevented via other units from the real time runtime aspect.
 
 
 Possible Variations
@@ -74,3 +74,15 @@ Commanding Units
 
 Moving Units
 -------------
+
+
+
+
+
+Future Ideas
+===========
+
+Second wave
+---------
+
+You get up to half your points deployed at game start and the other half a few turns later. Game is slightly longer than normal. To add some greater tactical variation at the start of the game, vs a fuller balance late game.
